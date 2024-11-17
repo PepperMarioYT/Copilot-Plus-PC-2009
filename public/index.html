@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Copilot+ PC 2009</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 0.8em;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1>Welcome to Copilot+ PC 2009 Beta</h1>
+        <p>Choose your mode to get started.</p>
+        <div class="button-container">
+            <button id="copilotBtn">Start Copilot</button>
+            <button id="cocreatorBtn">Start CoCreator</button>
+            <button id="designerBtn">Start Designer</button>
+            <button id="recallBtn">Start Recall</button>
+        </div>
+        <footer>
+            <p>&copy; 2024 PepperMarioYT | MIT Licence | Copilot and Designer are owned by Microsoft </p><p> Collage is owned by Artbreeder | My Implementation of Recall is under the MIT Licence</p>
+        </footer>
+    </div>
+
+    <script>
+        // Add event listeners to the buttons to start the respective mode
+        document.getElementById('copilotBtn').addEventListener('click', () => {
+            window.location.href = 'https://copilot.microsoft.com'; // Redirect to copilot mode
+        });
+
+        document.getElementById('cocreatorBtn').addEventListener('click', () => {
+            window.location.href = 'https://www.artbreeder.com/create/collage'; // Redirect to CoCreator mode
+        });
+
+        document.getElementById('designerBtn').addEventListener('click', () => {
+            window.location.href = 'https://designer.microsoft.com'; // Redirect to Designer mode
+        });
+
+        document.getElementById('recallBtn').addEventListener('click', () => {
+            window.location.href = 'recall.html'; // Redirect to Recall mode
+        });
+    </script>
+</body>
+</html>

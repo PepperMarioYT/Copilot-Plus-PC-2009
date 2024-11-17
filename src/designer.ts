@@ -12,7 +12,7 @@ export function startDesignerMode() {
     }
   });
 
-  designerWindow.loadURL('https://example.com/designer'); // Customize based on your need
+  designerWindow.loadURL('https://designer.microsoft.com'); // Customize based on your need
 
   designerWindow.on('closed', () => {
     console.log('Designer mode window closed');

@@ -2,7 +2,7 @@
   "name": "copilot-plus-pc-2009",
   "version": "1.0.0",
   "description": "Copilot+ PC 2009: Bringing Microsoft Copilot features to Windows 7-8.1",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
@@ -13,7 +13,6 @@
   "license": "MIT",
   "dependencies": {
     "adm-zip": "^0.5.10",
-    "copilot-plus-pc-2009": "file:",
     "electron": "^33.2.0",
     "electron-updater": "^4.6.5",
     "fs-extra": "^11.2.0",
@@ -32,7 +31,6 @@
     },
     "files": [
       "main.js",
-      "launcher.js",
       "package.json",
       "node_modules/**/*",
       "differentFiles.zip"
