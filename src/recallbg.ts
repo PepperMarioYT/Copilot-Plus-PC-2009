@@ -38,7 +38,7 @@ async function takeScreenshot() {
 function toggleScreenshotCapture(enabled: boolean) {
   if (enabled && !screenshotInterval) {
     // Start taking screenshots every 5 seconds
-    screenshotInterval = setInterval(takeScreenshot, 60s000); // Every 5 seconds
+    screenshotInterval = setInterval(takeScreenshot, 60000); // Every 5 seconds
     console.log("Screenshot capture enabled");
   } else if (!enabled && screenshotInterval) {
     // Stop the screenshot capture

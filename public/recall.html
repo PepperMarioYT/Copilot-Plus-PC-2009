@@ -34,6 +34,24 @@
       font-size: 14px;
       color: #555;
     }
+    #gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .gallery-item {
+      width: 100px;
+      height: 100px;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    }
+    .gallery-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
@@ -49,6 +67,11 @@
   <div class="info">
     <p id="status">Status: Disabled</p>
     <p id="startup-status">Auto-start: Disabled</p>
+  </div>
+
+  <!-- Gallery Section -->
+  <div id="gallery">
+    <!-- Thumbnails of screenshots will appear here -->
   </div>
 
   <script>
@@ -86,6 +109,28 @@
       await window.recallAPI.enableStartup(startupEnabled);
     });
 
+    // Function to load and display screenshots in the gallery
+    async function loadGallery() {
+      const galleryElement = document.getElementById('gallery');
+      const screenshots = await window.recallAPI.getScreenshotGallery();
+
+      // Clear the gallery first
+      galleryElement.innerHTML = '';
+
+      // Add each screenshot as a thumbnail
+      screenshots.forEach(screenshot => {
+        const imgElement = document.createElement('img');
+        imgElement.src = screenshot; // Image path for the screenshot
+        imgElement.alt = "Screenshot";
+        imgElement.className = 'gallery-item';
+
+        const galleryItem = document.createElement('div');
+        galleryItem.className = 'gallery-item';
+        galleryItem.appendChild(imgElement);
+        galleryElement.appendChild(galleryItem);
+      });
+    }
+
     // Initialize UI on load (e.g., show current setting status)
     window.onload = () => {
       // Load current status (this could be from a saved setting or config)
@@ -100,6 +145,9 @@
         document.getElementById('startup-status').innerText = startupEnabled ? 'Auto-start: Enabled' : 'Auto-start: Disabled';
         document.getElementById('startup-btn').innerText = startupEnabled ? 'Disable Auto-Start with Windows' : 'Enable Auto-Start with Windows';
       });
+
+      // Load the screenshot gallery
+      loadGallery();
     };
   </script>
 </body>
