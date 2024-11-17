@@ -1,0 +1,48 @@
+{
+  "name": "copilot-plus-pc-2009",
+  "version": "1.0.0",
+  "description": "Copilot+ PC 2009: Bringing Microsoft Copilot features to Windows 7-8.1",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "adm-zip": "^0.5.10",
+    "electron-updater": "^4.6.5",
+    "electron": "^33.2.0",
+    "typescript": "^5.6.3"
+  },
+  "devDependencies": {
+    "electron-builder": "^24.6.0"
+  },
+  "build": {
+    "appId": "com.yourcompany.copilotpluspc2009",
+    "productName": "Copilot+ PC 2009",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "main.js",
+      "launcher.js",
+      "package.json",
+      "node_modules/**/*",
+      "differentFiles.zip"
+    ],
+    "win": {
+      "target": ["nsis", "portable"],
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true
+    },
+    "portable": {
+      "artifactName": "copilot-plus-pc-2009-portable.zip"
+    }
+  }
+}
