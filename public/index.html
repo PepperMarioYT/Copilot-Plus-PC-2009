@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copilot+ PC 2009 - Recall Mode</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 24px;
+      color: #333;
+    }
+    button {
+      margin: 10px 0;
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      border-radius: 5px;
+    }
+    .enabled {
+      background-color: #28a745;
+      color: white;
+    }
+    .disabled {
+      background-color: #dc3545;
+      color: white;
+    }
+    .info {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <h1>Copilot+ PC 2009 - Recall Mode</h1>
+
+  <!-- Button to toggle screenshot capture -->
+  <button id="capture-btn" class="disabled">Enable Screenshot Capture</button>
+
+  <!-- Button to toggle auto-start with Windows -->
+  <button id="startup-btn" class="disabled">Enable Auto-Start with Windows</button>
+
+  <!-- Information Display Section -->
+  <div class="info">
+    <p id="status">Status: Disabled</p>
+    <p id="startup-status">Auto-start: Disabled</p>
+  </div>
+
+  <script>
+    let captureEnabled = false;
+    let startupEnabled = false;
+
+    // Function to toggle screenshot capture
+    document.getElementById('capture-btn').addEventListener('click', async () => {
+      captureEnabled = !captureEnabled;
+
+      const statusElement = document.getElementById('status');
+      const button = document.getElementById('capture-btn');
+
+      // Update button and status text
+      statusElement.innerText = captureEnabled ? 'Status: Enabled' : 'Status: Disabled';
+      button.innerText = captureEnabled ? 'Disable Screenshot Capture' : 'Enable Screenshot Capture';
+
+      // Trigger the background process to start/stop screenshot capture
+      await window.recallAPI.toggleScreenshot(captureEnabled);
+    });
+
+    // Function to enable/disable auto-start with Windows
+    document.getElementById('startup-btn').addEventListener('click', async () => {
+      const isEnabled = !startupEnabled;
+      startupEnabled = isEnabled;
+
+      const startupStatusElement = document.getElementById('startup-status');
+      const startupButton = document.getElementById('startup-btn');
+
+      // Update button and status text
+      startupStatusElement.innerText = startupEnabled ? 'Auto-start: Enabled' : 'Auto-start: Disabled';
+      startupButton.innerText = startupEnabled ? 'Disable Auto-Start with Windows' : 'Enable Auto-Start with Windows';
+
+      // Trigger the background process to enable/disable startup with Windows
+      await window.recallAPI.enableStartup(startupEnabled);
+    });
+
+    // Initialize UI on load (e.g., show current setting status)
+    window.onload = () => {
+      // Load current status (this could be from a saved setting or config)
+      window.recallAPI.loadSettings().then(settings => {
+        captureEnabled = settings.captureEnabled;
+        startupEnabled = settings.startupEnabled;
+
+        // Set the button and status texts according to the loaded settings
+        document.getElementById('status').innerText = captureEnabled ? 'Status: Enabled' : 'Status: Disabled';
+        document.getElementById('capture-btn').innerText = captureEnabled ? 'Disable Screenshot Capture' : 'Enable Screenshot Capture';
+
+        document.getElementById('startup-status').innerText = startupEnabled ? 'Auto-start: Enabled' : 'Auto-start: Disabled';
+        document.getElementById('startup-btn').innerText = startupEnabled ? 'Disable Auto-Start with Windows' : 'Enable Auto-Start with Windows';
+      });
+    };
+  </script>
+</body>
+</html>

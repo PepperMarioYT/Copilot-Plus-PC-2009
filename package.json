@@ -6,14 +6,18 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder",
+    "build:ts": "tsc",
     "postinstall": "electron-builder install-app-deps"
   },
-  "author": "Your Name",
+  "author": "PepperMario",
   "license": "MIT",
   "dependencies": {
     "adm-zip": "^0.5.10",
-    "electron-updater": "^4.6.5",
+    "copilot-plus-pc-2009": "file:",
     "electron": "^33.2.0",
+    "electron-updater": "^4.6.5",
+    "fs-extra": "^11.2.0",
+    "screenshot-desktop": "^1.15.0",
     "typescript": "^5.6.3"
   },
   "devDependencies": {
@@ -33,7 +37,10 @@
       "differentFiles.zip"
     ],
     "win": {
-      "target": ["nsis", "portable"],
+      "target": [
+        "nsis",
+        "portable"
+      ],
       "icon": "build/icon.ico"
     },
     "nsis": {
