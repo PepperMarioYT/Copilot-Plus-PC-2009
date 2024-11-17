@@ -20,7 +20,7 @@
     "electron-builder": "^24.6.0"
   },
   "build": {
-    "appId": "com.yourcompany.copilotpluspc2009",
+    "appId": "com.peppermarioyesiamnotacompany.copilotpluspc2009",
     "productName": "Copilot+ PC 2009",
     "directories": {
       "output": "dist"
