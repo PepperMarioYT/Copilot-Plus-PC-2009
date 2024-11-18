@@ -1,95 +1,49 @@
-import { app, BrowserWindow } from 'electron';
+import { BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
-import { startCopilotMode } from './copilot';
-import { startCoCreatorMode } from './cocreator';
-import { startDesignerMode } from './designer';
-import { startRecallUI } from './recallui';
-import { initRecallBackground } from './recallbg';
 
-// Function to create the main window
-function createMainWindow(): BrowserWindow {
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+// Function to initialize the Recall UI (photo viewer and settings)
+export function startRecallUI() {
+  console.log("Starting Recall UI...");
+
+  const recallWindow = new BrowserWindow({
+    width: 1024,
+    height: 768,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'), // Ensure preload script is used for better security
-      nodeIntegration: false, // Recommended to keep this false for security
+      preload: path.join(__dirname, 'preload.js'),  // Ensure this file is set up to handle IPC
+      nodeIntegration: false, // Disable nodeIntegration for security
       contextIsolation: true, // Enable context isolation for better security
+    },
+    icon: path.join(__dirname, 'assets', 'recall-icon.png')  // Path to the icon
+  });
+
+  recallWindow.loadFile('recall.html'); // Load the Recall HTML UI file
+
+  recallWindow.on('closed', () => {
+    console.log("Recall UI window closed");
+  });
+
+  // Listen for a screenshot toggle request from the UI
+  ipcMain.on('recall:toggle-screenshot', (event, args) => {
+    console.log("Screenshot toggle request:", args);
+    // Handle the screenshot functionality here
+  });
+
+  // Handle enabling/disabling the startup behavior for Recall mode
+  ipcMain.on('recall:enable-startup', (event, enabled) => {
+    if (enabled) {
+      enableStartup();
+    } else {
+      disableStartup();
     }
   });
-
-  // Remove the menu bar
-  mainWindow.setMenu(null);
-
-  // Load the HTML file for the main window
-  mainWindow.loadFile(path.join(__dirname, '..', 'public', '/index.html'));
-
-  mainWindow.on('closed', () => {
-    app.quit(); // Quit the app when the main window is closed
-  });
-
-  return mainWindow;
 }
 
-// Function to initialize the app based on command-line arguments
-function initializeApp() {
-  const mode = process.argv[2];  // Mode is passed as the second argument
-  const type = process.argv[3]; // Type is passed as the third argument
-
-  if (!mode) {
-    // If no mode is specified, create the main window
-    console.log('No arguments provided. Launching default window.');
-    createMainWindow();
-    return;
-  }
-
-  // Handle the specified mode
-  switch (mode) {
-    case 'copilot':
-      startCopilotMode();
-      break;
-    case 'cocreator':
-      startCoCreatorMode();
-      break;
-    case 'designer':
-      startDesignerMode();
-      break;
-    case 'recall':
-      if (type === 'background') {
-        initRecallBackground(); // Start recall in background mode
-      } else if (type === 'gui') {
-        startRecallUI(); // Start recall in GUI mode
-      } else {
-        console.error('Invalid --type argument for recall. Must be "gui" or "background".');
-      }
-      break;
-    default:
-      console.error(`Invalid mode: ${mode}`);
-  }
+// Function to enable Copilot+ PC 2009 to start with Windows (Recall mode)
+function enableStartup() {
+  // Your startup registry code here
 }
 
-// Handle the application life cycle
-app.whenReady().then(() => {
-  try {
-    // Initialize the app based on command-line arguments
-    initializeApp();
-
-    // For macOS, keep the app open when all windows are closed
-    app.on('window-all-closed', () => {
-      if (process.platform !== 'darwin') {
-        app.quit(); // Quit the app on other platforms
-      }
-    });
-
-  } catch (error) {
-    console.error('Error during app initialization:', error);
-    app.quit(); // Quit the app if an error occurs
-  }
-});
-
-// Ensure the app quits when all windows are closed
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
+// Function to disable startup
+function disableStartup() {
+  // Your registry delete code here
+}

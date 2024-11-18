@@ -13,6 +13,7 @@
   "license": "MIT",
   "dependencies": {
     "adm-zip": "^0.5.10",
+    "copilot-plus-pc-2009": "file:",
     "electron": "^33.2.0",
     "electron-updater": "^4.6.5",
     "fs-extra": "^11.2.0",
@@ -25,7 +26,7 @@
   },
   "build": {
     "appId": "com.peppermarioyesiamnotacompany.copilotpluspc2009",
-    "productName": "Copilot+ PC 2009",
+    "productName": "Launcher",
     "directories": {
       "output": "dist"
     },
@@ -33,7 +34,7 @@
       "main.js",
       "package.json",
       "node_modules/**/*",
-      "differentFiles.zip"
+      "dist/**/*"
     ],
     "win": {
       "target": [
@@ -45,7 +46,8 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true,
-      "createDesktopShortcut": true
+      "createDesktopShortcut": true,
+      "defaultInstallPath": "C:\\Program Files\\Copilot+ PC 2009"
     },
     "portable": {
       "artifactName": "copilot-plus-pc-2009-portable.zip"

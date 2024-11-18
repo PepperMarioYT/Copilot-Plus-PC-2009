@@ -16,7 +16,8 @@ export function startRecallUI() {
       preload: __dirname + '/preload.js', // Ensure this file is set up to handle IPC
       nodeIntegration: true,
       contextIsolation: false // Allow access to Node.js in the renderer process
-    }
+    },
+    icon: path.join(__dirname, '..', 'icons', 'recall-icon.png')  // Path to the icon
   });
 
   recallWindow.loadFile('recall.html'); // Load the Recall HTML UI file
@@ -55,7 +56,7 @@ export function startRecallUI() {
 // Function to enable Copilot+ PC 2009 to start with Windows (Recall mode)
 function enableStartup() {
   const appPath = path.join('C:', 'Program Files', 'Copilot+ PC 2009', 'launcher.exe');  // Correct program directory
-  const args = '--mode=recall --type=background';
+  const args = 'recall background';
   
   const regKey = `HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Run\\Copilot+ PC 2009 Recall`;
   exec(`reg add "${regKey}" /v "Copilot+ Recall" /t REG_SZ /d "\"${appPath}\" ${args}" /f`, (err, stdout, stderr) => {
